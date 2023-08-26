@@ -7,7 +7,7 @@
         <br/>
         <h1><strong>Sign Up</strong></h1>
         <br/>
-        <form>
+        <form method="post" action="{% url 'signup' %}">
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit" class="btn btn-secondary">Sign Up</button>

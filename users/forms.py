@@ -1,8 +1,12 @@
 """Forms of the users app."""
 
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import get_user_model
 
+
+User = get_user_model()
 PLACE_HOLDERS = {
+    'email': 'Email',
     'username': 'Email',
     'password': 'Password',
     'password1': 'Password',
@@ -26,6 +30,12 @@ class UserLoginForm(AuthenticationForm):
 
 class UserSignupForm(UserCreationForm):
     """User Sign Up Form."""
+
+    class Meta:
+        """Add model and fields."""
+
+        model = User
+        fields = ['email', 'password1', 'password2']
 
     def __init__(self, *args, **kwargs):
         """Add styling to the fields."""

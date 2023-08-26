@@ -9,7 +9,7 @@ from users.forms import UserLoginForm, UserSignupForm
 
 
 class UserLoginView(SuccessMessageMixin, LoginView):
-    """User Lg In View."""
+    """User Log In View."""
 
     template_name = 'login.html'
     form_class = UserLoginForm
