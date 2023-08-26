@@ -1,8 +1,7 @@
+"""Forms of the users app."""
+
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import get_user_model
 
-
-User = get_user_model()
 PLACE_HOLDERS = {
     'username': 'Email',
     'password': 'Password',
