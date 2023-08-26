@@ -1,6 +1,6 @@
 """Views of the users app."""
 
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
@@ -24,3 +24,10 @@ class UserSignupView(SuccessMessageMixin, CreateView):
     form_class = UserSignupForm
     success_url = reverse_lazy('login')
     success_message = 'Signed up successfully!'
+
+
+class UserLogoutView(SuccessMessageMixin, LogoutView):
+    """User Log Out View."""
+
+    success_url = reverse_lazy('home')
+    success_message = 'You have been logged out.'
