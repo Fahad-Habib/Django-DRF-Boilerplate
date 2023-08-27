@@ -1,14 +1,16 @@
 """Views of the users app."""
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
 
 from users.forms import UserLoginForm, UserSignupForm
+from users.mixins import OnlyUnauthenticatedMixin
 
 
-class UserLoginView(SuccessMessageMixin, LoginView):
+class UserLoginView(OnlyUnauthenticatedMixin, SuccessMessageMixin, LoginView):
     """User Log In View."""
 
     template_name = 'login.html'
@@ -16,8 +18,11 @@ class UserLoginView(SuccessMessageMixin, LoginView):
     success_url = reverse_lazy('home')
     success_message = 'Logged in successfully!'
 
+    def get_success_url(self):
+        return reverse_lazy('home')
 
-class UserSignupView(SuccessMessageMixin, CreateView):
+
+class UserSignupView(OnlyUnauthenticatedMixin, SuccessMessageMixin, CreateView):
     """User Sign Up View."""
 
     template_name = 'signup.html'
@@ -26,8 +31,10 @@ class UserSignupView(SuccessMessageMixin, CreateView):
     success_message = 'Signed up successfully!'
 
 
-class UserLogoutView(SuccessMessageMixin, LogoutView):
+class UserLogoutView(LoginRequiredMixin, SuccessMessageMixin, LogoutView):
     """User Log Out View."""
 
-    success_url = reverse_lazy('home')
     success_message = 'You have been logged out.'
+
+    def get_success_url(self):
+        return reverse_lazy('home')
