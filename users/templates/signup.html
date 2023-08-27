@@ -2,6 +2,8 @@
 
 {% load socialaccount %}
 
+{% load static %}
+
 {% block content %}
 
 <div class="container">
@@ -14,8 +16,14 @@
             {{ form.as_p }}
             <button type="submit" class="btn btn-secondary">Sign Up</button>
         </form>
-
-        <a href="{% provider_login_url 'google' %}">Continue with Google</a>
+        <br/>
+        <form method="post" action="{% provider_login_url 'google' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-dark">
+                <img width="20px" style="margin-bottom:3px; margin-right:5px" src="{% static 'images/Google.png' %}"/>
+                Continue with Google
+            </button>
+        </form>
     </div>
 </div>
 
