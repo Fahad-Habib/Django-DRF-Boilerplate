@@ -16,14 +16,19 @@
             {{ form.as_p }}
             <button type="submit" class="btn btn-secondary">Sign Up</button>
         </form>
-        <br/>
+        <div style="display: flex; align-items: center; text-align: center; margin: 15px 0">
+            <div style="flex: 1; border-top: 1px solid #ccc; margin: 0 10px;"></div>
+            <span class="text-muted">OR</span>
+            <div style="flex: 1; border-top: 1px solid #ccc; margin: 0 10px;"></div>
+        </div>
         <form method="post" action="{% provider_login_url 'google' %}">
             {% csrf_token %}
-            <button type="submit" class="btn btn-outline-dark">
-                <img width="20px" style="margin-bottom:3px; margin-right:5px" src="{% static 'images/Google.png' %}"/>
+            <button type="submit" class="btn btn-outline-dark rounded-pill">
+                <img width="20px" style="margin-bottom:3px; margin-right:6px" src="{% static 'images/Google.png' %}"/>
                 Continue with Google
             </button>
         </form>
+        <div style="margin: 16px 0;">Already have an account? <a href="{% url 'login' %}">Login</a></div>
     </div>
 </div>
 
