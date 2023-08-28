@@ -4,7 +4,7 @@ from django.urls import path
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView)
 
-from users.api.views import UserSignUpAPIView, ChangePasswordAPIView
+from users.api.views import ChangePasswordAPIView, UserSignUpAPIView
 
 urlpatterns = [
     path('signup/', UserSignUpAPIView.as_view()),

@@ -5,7 +5,7 @@ from rest_framework.generics import CreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
-from users.api.serializers import UserSerializer, ChangePasswordSerializer
+from users.api.serializers import ChangePasswordSerializer, UserSerializer
 
 
 class UserSignUpAPIView(CreateAPIView):

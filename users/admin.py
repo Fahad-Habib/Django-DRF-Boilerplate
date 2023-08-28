@@ -9,4 +9,4 @@ from users.models import CustomUser
 class CustomUserAdmin(admin.ModelAdmin):
     """Customize User interface on admin panel."""
 
-    list_display = ('email', 'first_name', 'last_name')
+    list_display = ('email', 'first_name', 'last_name', 'is_active', 'is_verified', 'is_staff', 'is_superuser')
