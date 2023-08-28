@@ -1,11 +1,14 @@
 """Views of the passwords app."""
 
-from django.contrib.auth.views import (PasswordResetCompleteView,
+from django.contrib.auth.views import (PasswordChangeView,
+                                       PasswordResetCompleteView,
                                        PasswordResetConfirmView,
                                        PasswordResetDoneView,
                                        PasswordResetView)
+from django.urls import reverse_lazy
 
-from users.passwords.forms import (CustomPasswordResetForm,
+from users.passwords.forms import (CustomPasswordChangeForm,
+                                   CustomPasswordResetForm,
                                    CustomSetPasswordForm)
 
 
@@ -33,3 +36,11 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     """Customize Password Reset Complete View."""
 
     template_name = 'password_reset_complete.html'
+
+
+class CustomPasswordChangeView(PasswordChangeView):
+    """Customize Password Reset View."""
+
+    template_name = 'change_password.html'
+    form_class = CustomPasswordChangeForm
+    success_url = reverse_lazy('home')
