@@ -19,6 +19,7 @@ class UserLoginView(OnlyUnauthenticatedMixin, SuccessMessageMixin, LoginView):
     success_message = 'Logged in successfully!'
 
     def get_success_url(self):
+        """Return success url."""
         return reverse_lazy('home')
 
 
@@ -37,4 +38,5 @@ class UserLogoutView(LoginRequiredMixin, SuccessMessageMixin, LogoutView):
     success_message = 'You have been logged out.'
 
     def get_success_url(self):
+        """Return success url."""
         return reverse_lazy('home')
