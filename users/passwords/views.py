@@ -12,8 +12,8 @@ from users.passwords.forms import (CustomPasswordResetForm,
 class CustomPasswordResetView(PasswordResetView):
     """Customize Password Reset View."""
 
-    form_class = CustomPasswordResetForm
     template_name = 'reset_password.html'
+    form_class = CustomPasswordResetForm
 
 
 class CustomPasswordResetDoneView(PasswordResetDoneView):
