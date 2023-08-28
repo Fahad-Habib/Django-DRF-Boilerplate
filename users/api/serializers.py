@@ -30,3 +30,11 @@ class UserSerializer(serializers.ModelSerializer):
         if attrs.get('password') != attrs.get('confirm_password'):
             raise serializers.ValidationError("Passwords do not match.")
         return attrs
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """Change Password serializer."""
+
+    old_password = serializers.CharField(min_length=8, max_length=100, required=True)
+    new_password = serializers.CharField(min_length=8, max_length=100, required=True)
+    confirm_password = serializers.CharField(min_length=8, max_length=100, required=True)
