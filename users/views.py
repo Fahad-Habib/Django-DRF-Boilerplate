@@ -5,16 +5,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.contrib.auth.tokens import default_token_generator
 from django.views.generic import CreateView, TemplateView
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 
-
 from users.forms import UserLoginForm, UserSignupForm
 from users.mixins import OnlyUnauthenticatedMixin
+from users.tokens import CustomTokenGenerator
 
 User = get_user_model()
+Token_Generator = CustomTokenGenerator()
 
 
 class UserLoginView(OnlyUnauthenticatedMixin, SuccessMessageMixin, LoginView):
@@ -65,7 +65,7 @@ class UserActivationView(TemplateView):
         try:
             user_id = force_str(urlsafe_base64_decode(kwargs['uid']))
             user = User.objects.get(pk=user_id)
-            if default_token_generator.check_token(user, kwargs['token']):
+            if Token_Generator.check_token(user, kwargs['token']):
                 if not user.is_verified:
                     user.is_verified = True
                     user.save()
@@ -75,6 +75,5 @@ class UserActivationView(TemplateView):
             else:
                 context['activation_status'] = 'error'
         except Exception as e:
-            print(e)
             context['activation_status'] = 'error'
         return context

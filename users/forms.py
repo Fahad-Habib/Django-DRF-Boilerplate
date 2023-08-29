@@ -2,7 +2,6 @@
 
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
@@ -10,8 +9,10 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
 from django.conf import settings
 
+from users.tokens import CustomTokenGenerator
 
 User = get_user_model()
+Token_Generator = CustomTokenGenerator()
 PLACE_HOLDERS = {
     'email': 'Email',
     'username': 'Email',
@@ -66,7 +67,7 @@ class UserSignupForm(UserCreationForm):
         html_message = render_to_string('activation_email.html', {
             'domain': get_current_site(self.request).domain,
             'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': default_token_generator.make_token(user),
+            'token': Token_Generator.make_token(user),
         })
         send_mail(
             subject='Activate your account',
