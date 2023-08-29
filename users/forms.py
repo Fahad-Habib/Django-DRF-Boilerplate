@@ -1,13 +1,13 @@
 """Forms of the users app."""
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.utils.http import urlsafe_base64_encode
-from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.mail import send_mail
-from django.conf import settings
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
 from users.tokens import CustomTokenGenerator
 
