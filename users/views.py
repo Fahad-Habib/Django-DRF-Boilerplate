@@ -5,7 +5,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.contrib.auth.tokens import default_token_generator
+from django.views.generic import CreateView, TemplateView
+from django.utils.encoding import force_str
+from django.utils.http import urlsafe_base64_decode
+
 
 from users.forms import UserLoginForm, UserSignupForm
 from users.mixins import OnlyUnauthenticatedMixin
@@ -18,7 +22,6 @@ class UserLoginView(OnlyUnauthenticatedMixin, SuccessMessageMixin, LoginView):
 
     template_name = 'login.html'
     form_class = UserLoginForm
-    success_url = reverse_lazy('home')
     success_message = 'Logged in successfully!'
 
     def get_success_url(self):
@@ -49,3 +52,29 @@ class UserLogoutView(LoginRequiredMixin, SuccessMessageMixin, LogoutView):
     def get_success_url(self):
         """Return success url."""
         return reverse_lazy('home')
+
+
+class UserActivationView(TemplateView):
+    """User Activation View."""
+
+    template_name = 'activation.html'
+
+    def get_context_data(self, **kwargs):
+        """Verify token."""
+        context = super().get_context_data(**kwargs)
+        try:
+            user_id = force_str(urlsafe_base64_decode(kwargs['uid']))
+            user = User.objects.get(pk=user_id)
+            if default_token_generator.check_token(user, kwargs['token']):
+                if not user.is_verified:
+                    user.is_verified = True
+                    user.save()
+                    context['activation_status'] = 'success'
+                else:
+                    context['activation_status'] = 'verified'
+            else:
+                context['activation_status'] = 'error'
+        except Exception as e:
+            print(e)
+            context['activation_status'] = 'error'
+        return context

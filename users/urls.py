@@ -2,7 +2,7 @@
 
 from django.urls import include, path
 
-from users.views import UserLoginView, UserLogoutView, UserSignupView
+from users.views import UserLoginView, UserLogoutView, UserSignupView, UserActivationView
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
@@ -12,4 +12,5 @@ urlpatterns = [
     path('login/', UserLoginView.as_view(), name='login'),
     path('logout/', UserLogoutView.as_view(), name='logout'),
     path('signup/', UserSignupView.as_view(), name='signup'),
+    path('activate/<str:uid>/<str:token>/', UserActivationView.as_view(), name='activate')
 ]

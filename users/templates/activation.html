@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="container text-center">
+    {% if activation_status == 'success' %}
+        <h3><strong>Activation successful. Please <a href="{% url 'login' %}">Login</a> to continue.</strong></h3>
+    {% elif activation_status == 'verified' %}
+        <h3><strong>Account is already verified.</strong></h3>
+    {% else %}
+        <h3><strong>Invalid or expired link.</strong></h3>
+    {% endif %}
+</section>
+
+{% endblock %}
