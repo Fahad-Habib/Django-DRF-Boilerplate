@@ -1,5 +1,6 @@
 """Views of the users app."""
 
+from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -8,6 +9,8 @@ from django.views.generic import CreateView
 
 from users.forms import UserLoginForm, UserSignupForm
 from users.mixins import OnlyUnauthenticatedMixin
+
+User = get_user_model()
 
 
 class UserLoginView(OnlyUnauthenticatedMixin, SuccessMessageMixin, LoginView):
@@ -30,6 +33,12 @@ class UserSignupView(OnlyUnauthenticatedMixin, SuccessMessageMixin, CreateView):
     form_class = UserSignupForm
     success_url = reverse_lazy('login')
     success_message = 'Signed up successfully!'
+
+    def get_form_kwargs(self):
+        """Send request to the form."""
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
 
 class UserLogoutView(LoginRequiredMixin, SuccessMessageMixin, LogoutView):
