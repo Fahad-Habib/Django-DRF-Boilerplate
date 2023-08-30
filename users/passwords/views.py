@@ -39,7 +39,7 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
 
 
 class CustomPasswordChangeView(PasswordChangeView):
-    """Customize Password Reset View."""
+    """Customize Password Change View."""
 
     template_name = 'change_password.html'
     form_class = CustomPasswordChangeForm
