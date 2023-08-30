@@ -10,6 +10,15 @@
 
     {% include 'navbar.html' %}
 
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible text-center fade show" role="alert">
+                <strong> {{ message }} </strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <br/>
 
     {% block content %}

@@ -1,15 +1,30 @@
 {% extends 'base.html' %}
 
+{% load socialaccount %}
+
 {% block content %}
 
-{% if user.is_authenticated %}
-
-<p>Hello there!</p>
-
-{% else %}
-
-<p>Hello there! Sign Up/In.</p>
-
-{% endif %}
+<div class="container">
+    <div class="col-md-4 offset-md-4 text-center">
+        <br/>
+        <h2><strong>Welcome to the website</strong></h2>
+        <br/>
+        <h5>Here are a few things you can do:</h5>
+        <br/>
+        <div class="d-grid gap-3">
+            {% if user.is_authenticated %}
+                <a href="{% url 'change_password' %}" type="button" class="btn btn-primary btn-block"> Change Password </a>
+            {% else %}
+                <a href="{% url 'signup' %}" type="button" class="btn btn-primary btn-block"> Sign Up </a>
+                <a href="{% url 'login' %}" type="button" class="btn btn-primary btn-block"> Log In </a>
+                <form method="post" action="{% provider_login_url 'google' %}" class="btn btn-primary btn-block">
+                    {% csrf_token %}
+                    <button type="submit" style="width: 100%; border: none; background-color: transparent; color: #fff;"> Continue with Google </button>
+                </form>
+                <a href="{% url 'reset_password' %}" type="button" class="btn btn-primary btn-block"> Reset Password </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
 {% endblock %}

@@ -54,6 +54,8 @@ INSTALLED_APPS = [
     'users.passwords'
 ]
 
+SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
+
 SOCIAL_ACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
@@ -171,6 +173,8 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend'
 ]
+
+LOGIN_REDIRECT_URL = '/'
 
 PASSWORD_RESET_TIMEOUT = 7200  # 2 hour
 
