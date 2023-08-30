@@ -7,12 +7,17 @@
 <div class="container">
     <div class="col-md-4 offset-md-4 text-center">
         <br/>
-        <h2><strong>Welcome to the website</strong></h2>
+        <h2><strong> Welcome {{ user.email }} </strong></h2>
         <br/>
         <h5>Here are a few things you can do:</h5>
         <br/>
         <div class="d-grid gap-3">
             {% if user.is_authenticated %}
+                {% if user.is_verified %}
+                    <button type="button" class="btn btn-success btn-block"> Account Verified </button>
+                {% else %}
+                    <button type="button" class="btn btn-danger btn-block"> Account not verified </button>
+                {% endif %}
                 <a href="{% url 'change_password' %}" type="button" class="btn btn-primary btn-block"> Change Password </a>
             {% else %}
                 <a href="{% url 'signup' %}" type="button" class="btn btn-primary btn-block"> Sign Up </a>

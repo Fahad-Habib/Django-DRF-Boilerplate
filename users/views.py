@@ -35,7 +35,7 @@ class UserSignupView(OnlyUnauthenticatedMixin, SuccessMessageMixin, CreateView):
     template_name = 'signup.html'
     form_class = UserSignupForm
     success_url = reverse_lazy('login')
-    success_message = 'Signed up successfully!'
+    success_message = 'Signed up successfully! A verification email has been sent to the provided email address.'
 
     def get_form_kwargs(self):
         """Send request to the form."""

@@ -1,5 +1,7 @@
 """Mixins of the users app."""
 
+from threading import Thread
+
 from django.conf import settings
 from django.contrib.auth.mixins import AccessMixin
 from django.contrib.sites.shortcuts import get_current_site
@@ -27,8 +29,13 @@ class OnlyUnauthenticatedMixin(AccessMixin):
 class EmailMixin:
     """Email Mixin."""
 
+    def send_activation_email(self, request, user):
+        """Start a thread for sending activation email."""
+        thread = Thread(target=self.__send_activation_email, args=(request, user))
+        thread.start()
+
     @staticmethod
-    def send_activation_email(request, user):
+    def __send_activation_email(request, user):
         """Send activation email."""
         html_message = render_to_string('activation_email.html', {
             'domain': get_current_site(request).domain,
