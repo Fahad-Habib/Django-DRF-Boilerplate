@@ -26,6 +26,10 @@
                     {% csrf_token %}
                     <button type="submit" style="width: 100%; border: none; background-color: transparent; color: #fff;"> Continue with Google </button>
                 </form>
+                <form method="post" action="{% provider_login_url 'github' %}" class="btn btn-primary btn-block">
+                    {% csrf_token %}
+                    <button type="submit" style="width: 100%; border: none; background-color: transparent; color: #fff;"> Continue with GitHub </button>
+                </form>
                 <a href="{% url 'reset_password' %}" type="button" class="btn btn-primary btn-block"> Reset Password </a>
             {% endif %}
         </div>

@@ -6,6 +6,13 @@
 
 {% block content %}
 
+<style>
+    .social-btn:hover {
+        background-color: white;
+        color: black;
+    }
+</style>
+
 <div class="container">
     <div class="col-md-4 offset-md-4 text-center">
         <br/>
@@ -23,9 +30,16 @@
         </div>
         <form method="post" action="{% provider_login_url 'google' %}">
             {% csrf_token %}
-            <button type="submit" class="btn btn-outline-dark rounded-pill">
+            <button type="submit" class="btn btn-outline-dark rounded-pill social-btn">
                 <img width="20px" style="margin-bottom:3px; margin-right:6px" src="{% static 'images/Google.png' %}"/>
-                Continue with Google
+                Sign Up with Google
+            </button>
+        </form>
+        <form method="post" action="{% provider_login_url 'github' %}" style="margin: 16px 0;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-dark rounded-pill social-btn">
+                <img width="20px" style="margin-bottom:3px; margin-right:6px" src="{% static 'images/GitHub.svg' %}"/>
+                Sign Up with GitHub
             </button>
         </form>
         <div style="margin: 16px 0;">Already have an account? <a href="{% url 'login' %}">Login</a></div>
