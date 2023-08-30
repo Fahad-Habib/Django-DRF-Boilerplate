@@ -4,7 +4,7 @@
 
 <section class="container text-center">
     {% if activation_status == 'success' %}
-        <h4><strong>Activation successful. Please <a href="{% url 'login' %}">Login</a> to continue.</strong></h4>
+        <h4><strong>Verification successful. Please <a href="{% url 'login' %}">Login</a> to continue.</strong></h4>
     {% elif activation_status == 'verified' %}
         <h4><strong>Account is already verified.</strong></h4>
     {% else %}

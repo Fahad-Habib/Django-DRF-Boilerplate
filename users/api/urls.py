@@ -12,5 +12,5 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()),
     path('password/change/', ChangePasswordAPIView.as_view()),
-    path('activate/<uid>/<token>/', UserActivationAPIView.as_view()),
+    path('confirm-email/<uid>/<token>/', UserActivationAPIView.as_view()),
 ]

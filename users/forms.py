@@ -1,18 +1,11 @@
 """Forms of the users app."""
 
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.mail import send_mail
-from django.template.loader import render_to_string
-from django.utils.encoding import force_bytes
-from django.utils.http import urlsafe_base64_encode
 
-from users.tokens import CustomTokenGenerator
+from users.mixins import EmailMixin
 
 User = get_user_model()
-Token_Generator = CustomTokenGenerator()
 PLACE_HOLDERS = {
     'email': 'Email',
     'username': 'Email',
@@ -36,7 +29,7 @@ class UserLoginForm(AuthenticationForm):
             self.fields[field].help_text = None
 
 
-class UserSignupForm(UserCreationForm):
+class UserSignupForm(UserCreationForm, EmailMixin):
     """User Sign Up Form."""
 
     class Meta:
@@ -59,20 +52,5 @@ class UserSignupForm(UserCreationForm):
     def save(self, commit=True):
         """Send activation email after creating the user."""
         user = super().save(commit)
-        self.send_activation_email(user)
+        self.send_activation_email(self.request, user)
         return user
-
-    def send_activation_email(self, user):
-        """Send activation email."""
-        html_message = render_to_string('activation_email.html', {
-            'domain': get_current_site(self.request).domain,
-            'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-            'token': Token_Generator.make_token(user),
-        })
-        send_mail(
-            subject='Activate your account',
-            message='Thank you for registering an account with us!',
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[user.email],
-            html_message=html_message
-        )
