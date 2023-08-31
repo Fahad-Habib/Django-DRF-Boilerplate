@@ -1,35 +1,26 @@
 """Forms of the users app."""
 
+from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
+from core.forms import BaseForm
 from users.mixins import EmailMixin
 
 User = get_user_model()
-PLACE_HOLDERS = {
-    'email': 'Email',
-    'username': 'Email',
-    'password': 'Password',
-    'password1': 'Password',
-    'password2': 'Confirm Password',
-}
 
 
-class UserLoginForm(AuthenticationForm):
+class UserLoginForm(AuthenticationForm, BaseForm):
     """User Log In Form."""
 
     def __init__(self, *args, **kwargs):
         """Add styling to the fields."""
         super().__init__(*args, **kwargs)
 
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
-            self.fields[field].widget.attrs['placeholder'] = PLACE_HOLDERS[field]
-            self.fields[field].label = ''
-            self.fields[field].help_text = None
+        self.change_style()
 
 
-class UserSignupForm(UserCreationForm, EmailMixin):
+class UserSignupForm(UserCreationForm, EmailMixin, BaseForm):
     """User Sign Up Form."""
 
     class Meta:
@@ -43,14 +34,26 @@ class UserSignupForm(UserCreationForm, EmailMixin):
         self.request = kwargs.pop('request')
         super().__init__(*args, **kwargs)
 
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
-            self.fields[field].widget.attrs['placeholder'] = PLACE_HOLDERS[field]
-            self.fields[field].label = ''
-            self.fields[field].help_text = None
+        self.change_style()
 
     def save(self, commit=True):
         """Send activation email after creating the user."""
         user = super().save(commit)
         self.send_activation_email(self.request, user)
         return user
+
+
+class UserProfileForm(forms.ModelForm, BaseForm):
+    """User Profile Form."""
+
+    class Meta:
+        """Define model and fields."""
+
+        model = User
+        fields = ['first_name', 'last_name', 'about', 'address', 'contact', 'picture']
+
+    def __init__(self, *args, **kwargs):
+        """Add styling to the fields."""
+        super().__init__(*args, **kwargs)
+
+        self.change_style()

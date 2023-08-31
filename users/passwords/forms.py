@@ -3,24 +3,7 @@
 from django.contrib.auth.forms import (PasswordChangeForm, PasswordResetForm,
                                        SetPasswordForm)
 
-PLACE_HOLDERS = {
-    'email': 'Enter your email',
-    'old_password': 'Enter old password',
-    'new_password1': 'New Password',
-    'new_password2': 'Confirm Password'
-}
-
-
-class BaseForm:
-    """Base form class."""
-
-    def change_style(self):
-        """Add styling to the fields."""
-        for field in self.fields:
-            self.fields[field].widget.attrs['class'] = 'form-control'
-            self.fields[field].widget.attrs['placeholder'] = PLACE_HOLDERS[field]
-            self.fields[field].label = ''
-            self.fields[field].help_text = None
+from core.forms import BaseForm
 
 
 class CustomPasswordResetForm(PasswordResetForm, BaseForm):

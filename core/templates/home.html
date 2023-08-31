@@ -4,10 +4,10 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="col-md-4 offset-md-4 text-center">
-        <br/>
-        <h2><strong> Welcome {{ user.email }} </strong></h2>
+<div class="container text-center">
+    <br/>
+    <h2><strong> Welcome {{ user.email }} </strong></h2>
+    <div class="col-md-4 offset-md-4">
         <br/>
         <h5>Here are a few things you can do:</h5>
         <br/>
@@ -18,17 +18,19 @@
                 {% else %}
                     <button type="button" class="btn btn-danger btn-block"> Account not verified </button>
                 {% endif %}
+                <a href="{% url 'user_profile' user.pk %}" type="button" class="btn btn-primary btn-block"> Change Profile </a>
                 <a href="{% url 'change_password' %}" type="button" class="btn btn-primary btn-block"> Change Password </a>
+                <a href="{% url 'logout' %}" type="button" class="btn btn-primary btn-block"> Logout </a>
             {% else %}
                 <a href="{% url 'signup' %}" type="button" class="btn btn-primary btn-block"> Sign Up </a>
                 <a href="{% url 'login' %}" type="button" class="btn btn-primary btn-block"> Log In </a>
                 <form method="post" action="{% provider_login_url 'google' %}" class="btn btn-primary btn-block">
                     {% csrf_token %}
-                    <button type="submit" style="width: 100%; border: none; background-color: transparent; color: #fff;"> Continue with Google </button>
+                    <button type="submit" style="width: 100%; border: none; background-color: transparent; color: #fff;"> Sign Up / In with Google </button>
                 </form>
                 <form method="post" action="{% provider_login_url 'github' %}" class="btn btn-primary btn-block">
                     {% csrf_token %}
-                    <button type="submit" style="width: 100%; border: none; background-color: transparent; color: #fff;"> Continue with GitHub </button>
+                    <button type="submit" style="width: 100%; border: none; background-color: transparent; color: #fff;"> Sign Up / In with GitHub </button>
                 </form>
                 <a href="{% url 'reset_password' %}" type="button" class="btn btn-primary btn-block"> Reset Password </a>
             {% endif %}

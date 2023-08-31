@@ -7,9 +7,9 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 
-from users.forms import UserLoginForm, UserSignupForm
+from users.forms import UserLoginForm, UserProfileForm, UserSignupForm
 from users.mixins import OnlyUnauthenticatedMixin
 from users.tokens import CustomTokenGenerator
 
@@ -77,3 +77,13 @@ class UserActivationView(TemplateView):
         except Exception as e:
             context['activation_status'] = 'error'
         return context
+
+
+class UserProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    """User Profile View."""
+
+    template_name = 'user_profile.html'
+    queryset = User.objects.all()
+    form_class = UserProfileForm
+    success_url = reverse_lazy('home')
+    success_message = 'Profile updated successfully.'
