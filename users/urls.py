@@ -14,5 +14,5 @@ urlpatterns = [
     path('signup/', UserSignupView.as_view(), name='signup'),
     path('confirm-email/<uid>/<token>/', UserActivationView.as_view(), name='activate'),
 
-    path('profile/<str:pk>/', UserProfileView.as_view(), name='user_profile'),
+    path('profile/', UserProfileView.as_view(), name='user_profile'),
 ]

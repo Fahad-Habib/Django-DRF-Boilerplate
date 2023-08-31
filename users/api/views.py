@@ -4,11 +4,13 @@ from django.contrib.auth import get_user_model
 from django.utils.encoding import force_str
 from django.utils.http import urlsafe_base64_decode
 from rest_framework import response, status
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import (CreateAPIView, RetrieveAPIView,
+                                     UpdateAPIView)
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
 
-from users.api.serializers import ChangePasswordSerializer, UserSerializer
+from users.api.serializers import (ChangePasswordSerializer,
+                                   UserProfileSerializer, UserSerializer)
 from users.tokens import CustomTokenGenerator
 
 User = get_user_model()
@@ -39,6 +41,17 @@ class UserActivationAPIView(APIView):
             return response.Response({'message': 'Invalid or expired link.'}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return response.Response({'message': 'Invalid or expired link.'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserProfileAPIView(RetrieveAPIView, UpdateAPIView):
+    """User Profile API View."""
+
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserProfileSerializer
+
+    def get_object(self):
+        """Allow users to only change their own profile."""
+        return self.request.user
 
 
 class ChangePasswordAPIView(APIView):

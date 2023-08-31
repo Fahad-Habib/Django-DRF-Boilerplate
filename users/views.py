@@ -83,7 +83,10 @@ class UserProfileView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     """User Profile View."""
 
     template_name = 'user_profile.html'
-    queryset = User.objects.all()
     form_class = UserProfileForm
     success_url = reverse_lazy('home')
     success_message = 'Profile updated successfully.'
+
+    def get_object(self, queryset=None):
+        """Allow users to only change their own profile."""
+        return self.request.user

@@ -49,6 +49,16 @@ class UserSerializer(serializers.ModelSerializer, EmailMixin):
         return data
 
 
+class UserProfileSerializer(serializers.ModelSerializer):
+    """User Profile Serializer."""
+
+    class Meta:
+        """Define model and fields."""
+
+        model = User
+        fields = ['first_name', 'last_name', 'about', 'address', 'contact', 'picture']
+
+
 class ChangePasswordSerializer(serializers.Serializer):
     """Change Password serializer."""
 

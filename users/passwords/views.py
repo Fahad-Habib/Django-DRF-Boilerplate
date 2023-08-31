@@ -5,6 +5,7 @@ from django.contrib.auth.views import (PasswordChangeView,
                                        PasswordResetConfirmView,
                                        PasswordResetDoneView,
                                        PasswordResetView)
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 
 from users.passwords.forms import (CustomPasswordChangeForm,
@@ -38,9 +39,10 @@ class CustomPasswordResetCompleteView(PasswordResetCompleteView):
     template_name = 'password_reset_complete.html'
 
 
-class CustomPasswordChangeView(PasswordChangeView):
+class CustomPasswordChangeView(SuccessMessageMixin, PasswordChangeView):
     """Customize Password Change View."""
 
     template_name = 'change_password.html'
     form_class = CustomPasswordChangeForm
+    success_message = 'Password changed successfully.'
     success_url = reverse_lazy('home')
