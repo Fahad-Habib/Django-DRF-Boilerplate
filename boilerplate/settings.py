@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'users.passwords'
 ]
 
-SOCIALACCOUNT_ADAPTER = 'users.adapters.CustomSocialAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'users.allauth.adapters.CustomSocialAccountAdapter'
 
 SOCIAL_ACCOUNT_PROVIDERS = {
     'google': {

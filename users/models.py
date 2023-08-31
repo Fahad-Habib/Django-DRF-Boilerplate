@@ -45,3 +45,21 @@ class CustomUser(AbstractUser):
     def __str__(self):
         """Return email of the user."""
         return self.email
+
+
+class UserProfile(models.Model):
+    """User Profile Model."""
+
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile')
+    picture = models.ImageField(null=True, blank=True)
+    about = models.TextField(max_length=200, blank=True)
+    address = models.CharField(max_length=100, blank=True)
+    contact = models.CharField(max_length=20, blank=True)
+
+    def __str__(self):
+        """Return email of the user."""
+        return self.user.email
+
+    def full_name(self):
+        """Return full name of the user."""
+        return f"{self.user.first_name} {self.user.last_name}"
