@@ -9,8 +9,8 @@ class BaseForm:
     def change_style(self):
         """Add styling to the fields."""
         for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'form-control'
             if field in PLACE_HOLDERS:
-                self.fields[field].widget.attrs['class'] = 'form-control'
                 self.fields[field].widget.attrs['placeholder'] = PLACE_HOLDERS[field]
-                self.fields[field].label = ''
-                self.fields[field].help_text = None
+            self.fields[field].label = ''
+            self.fields[field].help_text = None

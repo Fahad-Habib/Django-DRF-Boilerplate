@@ -20,7 +20,9 @@
         <br/>
         <form method="post" action="{% url 'signup' %}">
             {% csrf_token %}
-            {{ form.as_p }}
+            {% for field in form %}
+                <p>{{ field }}</p>
+            {% endfor %}
             <button type="submit" class="btn btn-secondary">Sign Up</button>
         </form>
         <div style="display: flex; align-items: center; text-align: center; margin: 15px 0">

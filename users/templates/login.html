@@ -20,7 +20,9 @@
         <br/>
         <form method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            {{ form.as_p }}
+            {% for field in form %}
+                <p>{{ field }}</p>
+            {% endfor %}
             <div style="text-align: left; margin-left: 5px; margin-bottom: 5px;">
                 <a href="{% url 'reset_password' %}"> Forgot Password? </a>
             </div>

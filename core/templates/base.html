@@ -19,6 +19,26 @@
         {% endfor %}
     {% endif %}
 
+    {% for field in form %}
+        {% if field.errors %}
+            {% for error in field.errors %}
+                <div class="alert alert-warning alert-dismissible text-center fade show" role="alert">
+                    <strong> {{ error }} </strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <div class="alert alert-warning alert-dismissible text-center fade show" role="alert">
+                <strong> {{ error }} </strong>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
     <br/>
 
     {% block content %}
