@@ -5,5 +5,5 @@ from django.urls import path
 from users.profile.api import views
 
 urlpatterns = [
-    path('profile/', views.UserProfileAPIView.as_view()),
+    path('<str:handle>/', views.UserProfileAPIView.as_view()),
 ]
