@@ -2,6 +2,7 @@
 
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
+from django.utils.text import slugify
 
 
 class CustomUserManager(BaseUserManager):
@@ -37,7 +38,8 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     is_verified = models.BooleanField(default=False)
 
-    picture = models.ImageField(null=True, blank=True)
+    handle = models.CharField(max_length=50, unique=True)
+    picture = models.ImageField(upload_to='profile/', null=True, blank=True)
     about = models.TextField(max_length=200, blank=True)
     address = models.CharField(max_length=100, blank=True)
     contact = models.CharField(max_length=20, blank=True)
@@ -46,6 +48,12 @@ class CustomUser(AbstractUser):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
+
+    def save(self, *args, **kwargs):
+        """Generate a handle while creating the user."""
+        if not self.handle:
+            self.handle = slugify(self.email)
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         """Return email of the user."""

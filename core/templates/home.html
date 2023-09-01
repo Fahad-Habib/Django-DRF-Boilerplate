@@ -18,7 +18,8 @@
                 {% else %}
                     <button type="button" class="btn btn-danger btn-block"> Account not verified </button>
                 {% endif %}
-                <a href="{% url 'user_profile' %}" type="button" class="btn btn-primary btn-block"> Change Profile </a>
+                <a href="{% url 'user_profile' %}" type="button" class="btn btn-primary btn-block"> View Profile </a>
+                <a href="{% url 'user_profile' %}" type="button" class="btn btn-primary btn-block"> Edit Profile </a>
                 <a href="{% url 'change_password' %}" type="button" class="btn btn-primary btn-block"> Change Password </a>
                 <a href="{% url 'logout' %}" type="button" class="btn btn-primary btn-block"> Logout </a>
             {% else %}
