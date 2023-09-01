@@ -47,21 +47,3 @@ class UserSerializer(serializers.ModelSerializer, EmailMixin):
             "message": "Verification email has been sent to your email address. Please check your inbox or spam folder."
         })
         return data
-
-
-class UserProfileSerializer(serializers.ModelSerializer):
-    """User Profile Serializer."""
-
-    class Meta:
-        """Define model and fields."""
-
-        model = User
-        fields = ['first_name', 'last_name', 'about', 'address', 'contact', 'picture']
-
-
-class ChangePasswordSerializer(serializers.Serializer):
-    """Change Password serializer."""
-
-    old_password = serializers.CharField(min_length=8, max_length=100, required=True)
-    new_password = serializers.CharField(min_length=8, max_length=100, required=True)
-    confirm_password = serializers.CharField(min_length=8, max_length=100, required=True)

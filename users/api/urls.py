@@ -1,18 +1,18 @@
 """API URLs of the users app."""
 
-from django.urls import path
+from django.urls import include, path
 from rest_framework_simplejwt.views import (TokenObtainPairView,
                                             TokenRefreshView)
 
-from users.api.views import (ChangePasswordAPIView, UserActivationAPIView,
-                             UserProfileAPIView, UserSignUpAPIView)
+from users.api import views
 
 urlpatterns = [
-    path('signup/', UserSignUpAPIView.as_view()),
+    path('profile/', include('users.profile.api.urls')),
+    path('password/', include('users.passwords.api.urls')),
+
     path('token/', TokenObtainPairView.as_view()),
     path('token/refresh/', TokenRefreshView.as_view()),
-    path('password/change/', ChangePasswordAPIView.as_view()),
-    path('confirm-email/<uid>/<token>/', UserActivationAPIView.as_view()),
 
-    path('profile/', UserProfileAPIView.as_view()),
+    path('signup/', views.UserSignUpAPIView.as_view()),
+    path('confirm-email/<uid>/<token>/', views.UserActivationAPIView.as_view()),
 ]
