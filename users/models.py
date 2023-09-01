@@ -4,6 +4,10 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.text import slugify
 
+from users.validators import HandleValidator
+
+handle_validator = HandleValidator(r'^[A-Za-z][A-Za-z0-9_]*[A-Za-z0-9]$')
+
 
 class CustomUserManager(BaseUserManager):
     """Custom User Manager."""
@@ -38,7 +42,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     is_verified = models.BooleanField(default=False)
 
-    handle = models.CharField(max_length=50, unique=True)
+    handle = models.CharField(max_length=50, unique=True, validators=[handle_validator])
     picture = models.ImageField(upload_to='profile/', null=True, blank=True)
     about = models.TextField(max_length=200, blank=True)
     address = models.CharField(max_length=100, blank=True)

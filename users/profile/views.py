@@ -3,9 +3,9 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.urls import reverse_lazy
-from django.views.generic import UpdateView, DetailView
 from django.http import Http404
+from django.urls import reverse_lazy
+from django.views.generic import DetailView, UpdateView
 
 from users.profile.forms import UserProfileForm
 
@@ -39,5 +39,12 @@ class UserProfileEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return reverse_lazy('user_profile', kwargs={'handle': self.request.user.handle})
 
     def get_object(self, queryset=None):
-        """Return User object."""
-        return self.request.user
+        """Allow users to only change their own profile."""
+        try:
+            user = User.objects.get(handle=self.kwargs['handle'])
+            if user == self.request.user:
+                return user
+            else:
+                raise Http404
+        except User.DoesNotExist:
+            raise Http404
