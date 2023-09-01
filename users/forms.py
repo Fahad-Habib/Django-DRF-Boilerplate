@@ -1,6 +1,5 @@
 """Forms of the users app."""
 
-from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
@@ -41,19 +40,3 @@ class UserSignupForm(UserCreationForm, EmailMixin, BaseForm):
         user = super().save(commit)
         self.send_activation_email(self.request, user)
         return user
-
-
-class UserProfileForm(forms.ModelForm, BaseForm):
-    """User Profile Form."""
-
-    class Meta:
-        """Define model and fields."""
-
-        model = User
-        fields = ['first_name', 'last_name', 'about', 'address', 'contact', 'picture']
-
-    def __init__(self, *args, **kwargs):
-        """Add styling to the fields."""
-        super().__init__(*args, **kwargs)
-
-        self.change_style()

@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     'core',
     'users',
-    'users.passwords'
+    'users.profile',
+    'users.passwords',
 ]
 
 SOCIALACCOUNT_ADAPTER = 'users.allauth.adapters.CustomSocialAccountAdapter'

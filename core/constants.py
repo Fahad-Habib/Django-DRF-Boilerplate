@@ -11,6 +11,7 @@ PLACE_HOLDERS = {
     'new_password2': 'Confirm Password',
     'first_name': 'First Name',
     'last_name': 'Last Name',
+    'handle': 'Handle',
     'address': 'Address',
     'contact': 'Contact',
     'about': 'Tell us about yourself',

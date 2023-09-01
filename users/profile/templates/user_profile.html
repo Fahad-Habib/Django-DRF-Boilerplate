@@ -11,8 +11,8 @@
         <div class="card">
           <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
             <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
-              {% if user.picture %}
-                <img src="{{ user.picture.url }}"
+              {% if user_profile.picture %}
+                <img src="{{ user_profile.picture.url }}"
                   alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                   style="width: 150px; z-index: 1">
               {% else %}
@@ -20,25 +20,30 @@
                   alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
                   style="width: 150px; z-index: 1">
               {% endif %}
-              <button type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
-                style="z-index: 1;">
-                Edit profile
-              </button>
+              {% if user_profile == user %}
+                <a href="{% url 'edit_user_profile' user.handle %}" type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                  style="z-index: 1;">
+                  Edit profile
+                </a>
+              {% endif %}
             </div>
             <div class="ms-3" style="margin-top: 130px;">
-              <h5> {{ user.first_name }} {{ user.last_name }} </h5>
-              <p> {{ user.address }} </p>
+              <h5> {{ user_profile.first_name }} {{ user_profile.last_name }} </h5>
+              <p> {{ user_profile.address }} </p>
             </div>
           </div>
-          <div class="p-4 text-black" style="background-color: #f8f9fa; height: 90px;">
-          </div>
+          {% if user_profile == user %}
+            <div class="p-4 text-black" style="background-color: #f8f9fa; height: 90px;"></div>
+          {% else %}
+            <div class="p-4 text-black" style="background-color: #f8f9fa; height: 10px;"></div>
+          {% endif %}
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Full Name</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0"> {{ user.first_name }} {{ user.last_name }} </p>
+                <p class="text-muted mb-0"> {{ user_profile.first_name }} {{ user_profile.last_name }} </p>
               </div>
             </div>
             <hr>
@@ -47,39 +52,39 @@
                 <p class="mb-0">Email</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0"> {{ user.email }} </p>
+                <p class="text-muted mb-0"> {{ user_profile.email }} </p>
               </div>
             </div>
-            {% if user.contact %}
+            {% if user_profile.contact %}
               <hr>
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0">Phone</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0"> {{ user.contact }} </p>
+                  <p class="text-muted mb-0"> {{ user_profile.contact }} </p>
                 </div>
               </div>
             {% endif %}
-            {% if user.address %}
+            {% if user_profile.address %}
               <hr>
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0">Address</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0"> {{ user.address }} </p>
+                  <p class="text-muted mb-0"> {{ user_profile.address }} </p>
                 </div>
               </div>
             {% endif %}
-            {% if user.about %}
+            {% if user_profile.about %}
               <hr>
               <div class="row">
                 <div class="col-sm-3">
                   <p class="mb-0">About</p>
                 </div>
                 <div class="col-sm-9">
-                  <p class="text-muted mb-0"> {{ user.about }} </p>
+                  <p class="text-muted mb-0"> {{ user_profile.about }} </p>
                 </div>
               </div>
             {% endif %}
