@@ -32,11 +32,8 @@ class UserProfileEditView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     template_name = 'edit_user_profile.html'
     form_class = UserProfileForm
+    success_url = reverse_lazy('home')
     success_message = 'Profile updated successfully.'
-
-    def get_success_url(self):
-        """Return success url."""
-        return reverse_lazy('user_profile', kwargs={'handle': self.request.user.handle})
 
     def get_object(self, queryset=None):
         """Allow users to only change their own profile."""

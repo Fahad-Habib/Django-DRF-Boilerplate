@@ -1,9 +1,9 @@
 """API views of the profile app."""
 
 from django.contrib.auth import get_user_model
-from rest_framework.generics import RetrieveAPIView, UpdateAPIView
-from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.exceptions import NotFound
+from rest_framework.generics import RetrieveAPIView, UpdateAPIView
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from users.profile.api.serializers import UserProfileSerializer
 
