@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<section class="h-100 gradient-custom-2">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-9 col-xl-7">
+        <div class="card">
+          <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+            <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+              {% if user_profile.picture %}
+                <img src="{{ user_profile.picture.url }}"
+                  alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                  style="width: 150px; z-index: 1">
+              {% else %}
+                <img src="{% static 'images/default.png' %}"
+                  alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2"
+                  style="width: 150px; z-index: 1">
+              {% endif %}
+              {% if user_profile == user %}
+                <a href="{% url 'edit_user_profile' user.handle %}" type="button" class="btn btn-outline-dark" data-mdb-ripple-color="dark"
+                  style="z-index: 1;">
+                  Edit profile
+                </a>
+              {% endif %}
+            </div>
+            <div class="ms-3" style="margin-top: 130px;">
+              <h5> {{ user_profile.first_name }} {{ user_profile.last_name }} </h5>
+              <p> {{ user_profile.address }} </p>
+            </div>
+          </div>
+          {% if user_profile == user %}
+            <div class="p-4 text-black" style="background-color: #f8f9fa; height: 90px;"></div>
+          {% else %}
+            <div class="p-4 text-black" style="background-color: #f8f9fa; height: 10px;"></div>
+          {% endif %}
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"> {{ user_profile.first_name }} {{ user_profile.last_name }} </p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"> {{ user_profile.email }}
+                  {% if user_profile == user %}
+                    {% if user.is_verified %}
+                      <img src="{% static 'images/verified.svg' %}"/>
+                    {% else %}
+                      <img src="{% static 'images/unverified.svg' %}"/>
+                    {% endif %}
+                  {% endif %}
+                </p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Handle</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"> {{ user_profile.handle }} </p>
+              </div>
+            </div>
+            {% if user_profile.contact %}
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Phone</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"> {{ user_profile.contact }} </p>
+                </div>
+              </div>
+            {% endif %}
+            {% if user_profile.address %}
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">Address</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"> {{ user_profile.address }} </p>
+                </div>
+              </div>
+            {% endif %}
+            {% if user_profile.about %}
+              <hr>
+              <div class="row">
+                <div class="col-sm-3">
+                  <p class="mb-0">About</p>
+                </div>
+                <div class="col-sm-9">
+                  <p class="text-muted mb-0"> {{ user_profile.about|linebreaks }} </p>
+                </div>
+              </div>
+            {% endif %}
+            <br/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

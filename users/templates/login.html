@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load socialaccount %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .social-btn:hover {
+        background-color: white;
+        color: black;
+    }
+</style>
+
+<div class="container">
+    <div class="col-md-4 offset-md-4 text-center">
+        <br/>
+        <h1><strong>Log In</strong></h1>
+        <br/>
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% for field in form %}
+                <p>{{ field }}</p>
+            {% endfor %}
+            <div style="text-align: left; margin-left: 5px; margin-bottom: 5px;">
+                <a href="{% url 'reset_password' %}"> Forgot Password? </a>
+            </div>
+            <button type="submit" class="btn btn-secondary">Login</button>
+        </form>
+        <div style="display: flex; align-items: center; text-align: center; margin: 15px 0">
+            <div style="flex: 1; border-top: 1px solid #ccc; margin: 0 10px;"></div>
+            <span class="text-muted">OR</span>
+            <div style="flex: 1; border-top: 1px solid #ccc; margin: 0 10px;"></div>
+        </div>
+        <form method="post" action="{% provider_login_url 'google' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-dark rounded-pill social-btn">
+                <img width="20px" style="margin-bottom:3px; margin-right:6px" src="{% static 'images/Google.png' %}"/>
+                Sign In with Google
+            </button>
+        </form>
+        <form method="post" action="{% provider_login_url 'github' %}" style="margin: 16px 0;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-dark rounded-pill social-btn">
+                <img width="20px" style="margin-bottom:3px; margin-right:6px" src="{% static 'images/GitHub.svg' %}"/>
+                Sign In with GitHub
+            </button>
+        </form>
+        <div style="margin: 16px 0;">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></div>
+    </div>
+</div>
+
+{% endblock %}
