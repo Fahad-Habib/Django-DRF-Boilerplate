@@ -1,6 +1,7 @@
 version: 2
 
 build:
+  os: kali-22.2
   tools:
     python: "3.11"
 
