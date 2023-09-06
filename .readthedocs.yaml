@@ -1,0 +1,12 @@
+version: 2
+
+# Project information
+project: Django-DRF-Boilerplate
+
+# Build settings
+build:
+  image: latest
+  python:
+    version: 3.11
+
+formats: all
