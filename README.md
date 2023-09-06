@@ -172,7 +172,7 @@ cd Django-DRF-Boilerplate
 - Install requirements
 
 ```commandline
-python -m pip install requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 - Set up environment
