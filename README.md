@@ -3,6 +3,7 @@
 A powerful Django and Django REST Framework boilerplate project that provides a solid foundation for building web applications with essential features and best practices of class-based views.
 <br/>
 Minimal front-end has also been implemented in HTML, CSS and bootstrap for front-end testing.
+<hr/>
 
 ## Features
 
@@ -15,6 +16,7 @@ Minimal front-end has also been implemented in HTML, CSS and bootstrap for front
   - [Reset Password via Email](#password-management)
   - [Change Password using old password](#password-management)
 - [Profile Section](#profile-section)
+<hr/>
 
 ### Custom User Model
 
@@ -28,6 +30,7 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ```
+<hr/>
 
 ### Authentication via Social Account
 
@@ -72,6 +75,7 @@ To connect social account of users already signed-up with the specified email ra
 ```py
 SOCIALACCOUNT_ADAPTER = 'users.allauth.adapters.CustomSocialAccountAdapter'
 ```
+<hr/>
 
 ### JWT Authentication
 
@@ -100,6 +104,7 @@ SIMPLE_JWT = {
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 ```
+<hr/>
 
 ### Account Activation
 
@@ -113,6 +118,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'email host user'
 EMAIL_HOST_PASSWORD = 'email host password'
 ```
+<hr/>
 
 ### Password Management
 
@@ -127,10 +133,12 @@ PASSWORD_RESET_TIMEOUT = 7200  # 2 hour
 - Change Password using Old Password
 
 Changing the user password using old password has been implemented as well.
+<hr/>
 
 ### Profile Section
 
 User Profile section has also been implemented where users can edit their profile or look at others' profile via user handle.
+<hr/>
 
 ## Connect PostgreSQL
 
@@ -148,6 +156,7 @@ DATABASES = {
    }
 }
 ```
+<hr/>
 
 ## Getting Started
 
